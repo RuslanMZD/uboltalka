@@ -1,0 +1,54 @@
+.textAreaRedactor {
+margin-top: 3%;
+background: #B3E6E9;
+box-shadow: -10px 20px 10px rgba(42, 67, 85, 0.25);
+border-radius: 20px;
+outline: none;
+color:black;
+padding: 5%;
+height: 45%;
+
+
+}
+
+::placeholder {
+    color:white;
+    font-size: 1em;
+  }
+
+
+
+  .addButtons{
+margin-bottom: 5%;
+
+  }
+
+  .addButtons:hover{
+    color:green;
+    cursor: pointer;
+    -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+
+   
+}
+
+
+
+
+.buttonsArea{
+box-shadow: -10px 20px 10px rgba(42, 67, 85, 0.25);
+border-radius: 20px;
+outline: none;
+color:black;
+padding: 5%;
+height: 45%;
+
+}
+
+
+
+
+
+
+
