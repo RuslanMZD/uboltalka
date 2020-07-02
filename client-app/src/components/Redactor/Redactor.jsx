@@ -34,7 +34,7 @@ addMainText=(event)=>{
     this.setState({
     mainText:event.target.value
   })
-  console.log( this.state.idSlide)
+  console.log(this.state.buttons)
 
 };
 
@@ -55,7 +55,7 @@ obrabotkaId=(event)=>{
 addIdSlider=(event)=>{
   event.preventDefault()
  this.setState({idSlide:this.obrabotkaId(event)})
-   
+
   
 }
 
@@ -65,9 +65,38 @@ addIdSlider=(event)=>{
 
 addButtons=(event)=>{
 
- 
+let buttonsCopy =[...this.state.buttons];
+
+ buttonsCopy.push({text:"",color:"",nextButton:""})
+this.setState({buttons:buttonsCopy})
 
 }
+
+
+
+deleteButtons=(index)=>{
+  let buttonsCopy =[...this.state.buttons];
+
+  buttonsCopy.splice(index,1)
+ this.setState({buttons:buttonsCopy})
+ 
+
+// console.log(buttonsCopy)
+ }
+
+
+
+
+addVariant=(index,areaButtons,colorButton,nextIdButton)=>{
+  let buttonsCopy =[...this.state.buttons];
+buttonsCopy[index]={areaButtons,colorButton,nextIdButton};
+this.setState({buttons:buttonsCopy})
+
+
+}
+
+
+
 
 render(){
 return(
@@ -88,12 +117,7 @@ return(
     <div className="row">
   
   
-  <div className="col s12">
-<ButtonRedactor />
-   
-  
-  
-  </div>
+{this.state.buttons.length>0 ?   <div className="col s12">{this.state.buttons.map((data,index)=><div key={index}><ButtonRedactor addVariant={this.addVariant} deleteButtons={this.deleteButtons} index={index}/></div>)}</div> : null } 
 
 
 
@@ -114,7 +138,7 @@ return(
 
 <div className="row">
   <div className="cols s4 offset-s4 center-align">
-    <button class="btn-floating btn-large cyan pulse tooltipped waves-effect waves-light"  data-position="top" data-tooltip="Добавить вариант события в слайд"><i class="material-icons">add_circle_outline</i></button>
+    <button onClick={this.addButtons} class="btn-floating btn-large cyan pulse tooltipped waves-effect waves-light"  data-position="top" data-tooltip="Добавить вариант события в слайд"><i class="material-icons">add_circle_outline</i></button>
 
 </div>
 </div>

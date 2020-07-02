@@ -19,15 +19,15 @@ return(
 <form onSubmit={props.addIdSlider}>
   <div className="col s2 offset-s3">
   <input placeholder="Placeholder" id="idHystory" type="number" className="validate idSlide" />
-<label for="idHystory">Номер Истории </label>
+<label htmlFor="idHystory">Номер Истории </label>
   </div>
   <div className="col s2">
   <input placeholder="Placeholder" id="idHystoryLine" type="number" className="validate idSlide"  />
-<label for="idHystoryLine">Номер линии в истории</label>
+<label htmlFor="idHystoryLine">Номер линии в истории</label>
   </div>
   <div className="col s2">
   <input placeholder="Placeholder" id="idSlideLine" type="number" className="validate idSlide"  />
-<label for="idSlideLine">Номер Слайда в Линии</label>
+<label htmlFor="idSlideLine">Номер Слайда в Линии</label>
   </div>
 
   <div className="col s2">

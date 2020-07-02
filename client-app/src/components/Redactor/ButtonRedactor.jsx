@@ -9,6 +9,7 @@ import { BrowserRouter,Route } from 'react-router-dom';
 
 const ButtonRedactor=(props)=>{
 
+
 const [colorButton, setColorButton]=React.useState(null);
 
 
@@ -16,6 +17,34 @@ const ChangeColorButton=(event)=>{
 console.log(event.target.value);
 setColorButton(event.target.value)
 }
+
+
+
+const deleteButtons=()=>{
+props.deleteButtons(props.index)
+}
+
+
+let areaButtons = React.createRef();
+let idHystory = React.createRef();
+let idHystoryLine = React.createRef();
+let idSlideLine =React.createRef()
+
+
+const valueButtons =()=>{
+  let nextIdButton =`${idHystory.current.value}_${idHystoryLine.current.value}_${idSlideLine.current.value}`;
+
+  props.addVariant(props.index, areaButtons.current.value, colorButton, nextIdButton )
+  
+// console.log(areaButtons.current.value,colorButton,nextIdButton)
+
+}
+
+
+
+
+
+
 
 
 
@@ -27,7 +56,7 @@ return(
 <div className="row">
 
 <div className="col s4">
-<textarea className="buttonsArea" style={{backgroundColor:colorButton}}></textarea>
+<textarea ref={areaButtons}  className="buttonsArea" style={{backgroundColor:colorButton}}>{props.index}</textarea>
 </div>
 
 
@@ -48,16 +77,19 @@ return(
 
 
 <div className="col s6" >
+    
 <label>
+        <input name="group1" type="radio" value="#B3E6E9"  onClick={ChangeColorButton}/>
+        <span>Голубой</span>
+      </label>
+    
+    <label>
         <input name="group1" type="radio" value="#4AA8BD"  onClick={ChangeColorButton}/>
         <span>Конец</span>
       </label>
 
 
-      <label>
-        <input name="group1" type="radio" value="#B3E6E9"  onClick={ChangeColorButton}/>
-        <span>Голубой</span>
-      </label>
+    
 </div>
 
     </div>
@@ -72,13 +104,13 @@ return(
 <div className="row center-align">
     <div className="col s4 center-align"> 
      
-    <input placeholder="Placeholder" id="idHystory" type="number" className="validate idSlide" />
+    <input ref={idHystory} placeholder="Placeholder" id="idHystory" type="number" className="validate idSlide" />
     </div>
     <div className="col s4 center-align">
-    <input placeholder="Placeholder" id="idHystoryLine" type="number" className="validate idSlide" />
+    <input ref={idHystoryLine} placeholder="Placeholder" id="idHystoryLine" type="number" className="validate idSlide" />
     </div>
     <div className="col s4 center-align">
-    <input placeholder="Placeholder" id="idSlideLine" type="number" className="validate idSlide" />
+    <input ref={idSlideLine} placeholder="Placeholder" id="idSlideLine" type="number" className="validate idSlide" />
     </div> 
     <div className="row">
     
@@ -88,13 +120,13 @@ return(
 </div>
 <div className="row">
     <div className="col s6">
-    <button className="btn-floating tooltipped ' btn-large waves-effect waves-light green" data-position='left' data-tooltip='Добавить вариант'><i class="material-icons">check</i></button>
+    <button onClick={valueButtons} className="btn-floating tooltipped ' btn-large waves-effect waves-light green" data-position='left' data-tooltip='Добавить вариант'><i class="material-icons">check</i></button>
    
     </div>
 
     <div className="col s6">
     
-    <button className="btn-floating tooltipped  btn-large waves-effect waves-light red"  data-position='right' data-tooltip='Удалить вариант'><i class="material-icons">clear</i></button> 
+    <button onClick={deleteButtons} className="btn-floating tooltipped  btn-large waves-effect waves-light red"  data-position='right' data-tooltip='Удалить вариант'><i class="material-icons">clear</i></button> 
     </div>
 </div>
 
