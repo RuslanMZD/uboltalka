@@ -8,6 +8,7 @@ import * as axios from 'axios';
 
 import {compose} from 'redux';
 import Buttons from './Buttons';
+import './Content.css';
 
 
 
@@ -63,7 +64,7 @@ render(){
 
     return(
         <div>
-            <div style={{backgroundColor:"#B3E6E9"}}>
+            <div className="center-align mainText" style={{backgroundColor:"#B3E6E9"}}>
                 {this.state.mainText}
             </div>
 

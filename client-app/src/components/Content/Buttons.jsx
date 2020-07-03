@@ -15,10 +15,10 @@ const getHystory =()=>{
 }
 
 return(
-<div  onClick={getHystory} className="button" style={{backgroundColor:props.color}}>
+<div  onClick={getHystory} className="button center-align" style={{backgroundColor:props.color}}>
 <div>{props.text}</div>
 {/* <div>{props.color}</div> */}
-<div>{props.nextIdButton}</div>
+{/* <div>{props.nextIdButton}</div> */}
 
 </div>
 )

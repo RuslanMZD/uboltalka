@@ -1,0 +1,30 @@
+.button{
+    width: 50% ;
+    height: auto;
+    
+    margin-top: 5%;
+    box-shadow: -10px 20px 10px rgba(42, 67, 85, 0.25);
+border-radius: 20px;
+
+}
+
+
+/* .mainText{
+    width: 864px;
+    height: 684px;
+    left: 108px;
+    top: 321px;
+
+    font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 48px;
+line-height: 56px;
+display: flex;
+align-items: center;
+text-indent: 45px;
+
+color: #000000;
+
+
+} */
