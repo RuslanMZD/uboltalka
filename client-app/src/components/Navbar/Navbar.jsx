@@ -34,6 +34,7 @@ return(
       <li><NavLink to="/#">На Главную</NavLink></li>               
         <li><NavLink to="/#">Регистрация</NavLink></li>
         <li><NavLink to="/#">Авторизация</NavLink></li>
+        <li><NavLink to="/Content">Контент</NavLink></li>
         <li><NavLink to="/Redactor">Редактор</NavLink></li> 
         
         
@@ -43,6 +44,7 @@ return(
       <li><NavLink to="/#">На Главную</NavLink></li>
       <li><NavLink to="/#">Авторизация</NavLink></li>
         <li><NavLink to="/#">Регистрация</NavLink></li>
+        <li><NavLink to="/Content">Контент</NavLink></li>
       <li><NavLink to="/Redactor">Редактор</NavLink></li>
       </ul> 
       

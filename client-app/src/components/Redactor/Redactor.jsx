@@ -8,7 +8,7 @@ import ButtonRedactor from './ButtonRedactor';
 
 import { BrowserRouter,Route } from 'react-router-dom';
 
-class Redactor extends React.Component{
+class Redactor extends React.PureComponent{
 constructor(props){
     super(props)
     this.state={
