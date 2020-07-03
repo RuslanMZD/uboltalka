@@ -30,6 +30,26 @@ componentDidMount(){
 }
 
 
+
+addSlideToDb=async()=>{
+
+let mainText =this.state.mainText;
+let idSlide= this.state.idSlide;
+ let buttonsData = [...this.state.buttons];
+ console.log(buttonsData)
+let response =await axios.post(`redactor/add`,{mainText,idSlide,buttonsData});
+  console.log(response)
+if(response.data.mess==="Slide ADD"){
+  M.toast({html: 'СЛАЙД ДОБАВЛЕН'})
+}else{
+  M.toast({html: 'ОШИБКА ДОБАВЛЕНИЯ'})
+}
+
+
+
+}
+
+
 addMainText=(event)=>{
     this.setState({
     mainText:event.target.value
@@ -151,7 +171,7 @@ return(
 
 <div className="row">
     <div className="col s12 center-align">
-    <button className="waves-effect  tooltipped waves-light btn-large" data-position="bottom" data-tooltip="Добавить Слайд в Историю"><i class="material-icons left">add</i>ДОБАВИТЬ СЛАЙД</button>
+    <button onClick={this.addSlideToDb} className="waves-effect  tooltipped waves-light btn-large" data-position="bottom" data-tooltip="Добавить Слайд в Историю"><i class="material-icons left">add</i>ДОБАВИТЬ СЛАЙД</button>
     </div>
 </div>
 
