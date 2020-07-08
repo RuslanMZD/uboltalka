@@ -5,41 +5,39 @@ import * as axios from 'axios';
 
 
 import { BrowserRouter,Route } from 'react-router-dom';
+import { PureComponent } from 'react';
 
 
 const ButtonRedactor=(props)=>{
 
-  
-
-const [colorButton, setColorButton]=React.useState(null);
-
-
-const ChangeColorButton=(event)=>{
-console.log(event.target.value);
-setColorButton(event.target.value)
-}
 
 
 
-const deleteButtons=()=>{
-props.deleteButtons(props.index)
-}
-
-
-let areaButtons = React.createRef();
 let idHystory = React.createRef();
 let idHystoryLine = React.createRef();
 let idSlideLine =React.createRef()
 
-
-const valueButtons =()=>{
-  let nextIdButton =`${idHystory.current.value}_${idHystoryLine.current.value}_${idSlideLine.current.value}`;
-
-  props.addVariant(props.index, areaButtons.current.value, colorButton, nextIdButton )
   
-// console.log(areaButtons.current.value,colorButton,nextIdButton)
+
+
+const nextIdButton=()=>{
+  let idSlide=null
+if(idHystory.current.value>0 &&idHystoryLine.current.value>0 && idSlideLine.current.value>0){
+  idSlide=`${idHystory.current.value}_${idHystoryLine.current.value}_${idSlideLine.current.value}`;
+  props.nextIdButtonsThunkCreater(props.index,idSlide)
 
 }
+   console.log(idHystory.current.value,idHystoryLine.current.value,idSlideLine.current.value)
+
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -57,7 +55,7 @@ return(
 <div className="row">
 
 <div className="col s4">
-<textarea ref={areaButtons}  className="buttonsArea" style={{backgroundColor:colorButton}}>{props.index}</textarea>
+<textarea  onChange={(event)=>props.changeTextButtonsThunkCreater(props.index,event.target.value)} defaultValue={props.index+1}  className="buttonsArea" style={{backgroundColor:props.colorButton}}></textarea>
 </div>
 
 
@@ -65,13 +63,13 @@ return(
     <div className="row">
 <div className="col s6" >
 <label>
-        <input name="group1" type="radio" value="#D78100" onClick={ChangeColorButton} />
+        <input name="group1" type="radio" value="#D78100"  onClick={(event)=>props.changeColorButtonsThunkCreater(props.index,event.target.value)} />
         <span>Оранжевый</span>
       </label>
         
     
       <label>
-        <input name="group1" type="radio" value="#8DBE3D"  onClick={ChangeColorButton}/>
+        <input name="group1" type="radio" value="#8DBE3D" onClick={(event)=>props.changeColorButtonsThunkCreater(props.index,event.target.value)}/>
         <span>Зеленый</span>
       </label>
 </div>
@@ -80,12 +78,12 @@ return(
 <div className="col s6" >
     
 <label>
-        <input name="group1" type="radio" value="#B3E6E9"  onClick={ChangeColorButton}/>
+        <input name="group1" type="radio" value="#B3E6E9"  onClick={(event)=>props.changeColorButtonsThunkCreater(props.index,event.target.value)}/>
         <span>Голубой</span>
       </label>
     
     <label>
-        <input name="group1" type="radio" value="#4AA8BD"  onClick={ChangeColorButton}/>
+        <input name="group1" type="radio" value="#4AA8BD"  onClick={(event)=>props.changeColorButtonsThunkCreater(props.index,event.target.value)}/>
         <span>Конец</span>
       </label>
 
@@ -105,13 +103,13 @@ return(
 <div className="row center-align">
     <div className="col s4 center-align"> 
      
-    <input ref={idHystory} placeholder="Placeholder" id="idHystory" type="number" className="validate idSlide" />
+    <input ref={idHystory} placeholder="Placeholder" id="idHystory"  min="1" max="30" type="number" className="validate idSlide" />
     </div>
     <div className="col s4 center-align">
-    <input ref={idHystoryLine} placeholder="Placeholder" id="idHystoryLine" type="number" className="validate idSlide" />
+    <input ref={idHystoryLine} placeholder="Placeholder" id="idHystoryLine"  min="1" max="30" type="number" className="validate idSlide" />
     </div>
     <div className="col s4 center-align">
-    <input ref={idSlideLine} placeholder="Placeholder" id="idSlideLine" type="number" className="validate idSlide" />
+    <input ref={idSlideLine} placeholder="Placeholder" id="idSlideLine"  min="1" max="30" type="number" className="validate idSlide" />
     </div> 
     <div className="row">
     
@@ -121,13 +119,13 @@ return(
 </div>
 <div className="row">
     <div className="col s6">
-    <button onClick={valueButtons} className="btn-floating tooltipped ' btn-large waves-effect waves-light green" data-position='left' data-tooltip='Добавить вариант'><i class="material-icons">check</i></button>
+    <button onClick={nextIdButton} className="btn-floating tooltipped ' btn-large waves-effect waves-light green" data-position='left' data-tooltip='Добавить вариант'><i class="material-icons">check</i></button>
    
     </div>
 
     <div className="col s6">
     
-    <button onClick={deleteButtons} className="btn-floating tooltipped  btn-large waves-effect waves-light red"  data-position='right' data-tooltip='Удалить вариант'><i class="material-icons">clear</i></button> 
+    <button onClick={(event)=>props.deleteButtonsThunkCreater(event,props.index)} className="btn-floating tooltipped  btn-large waves-effect waves-light red"  dataposition='bottom' data-tooltip='Удалить вариант'><i class="material-icons">clear</i></button> 
     </div>
 </div>
 
@@ -150,5 +148,4 @@ return(
 
 
 }
-
 export default ButtonRedactor;

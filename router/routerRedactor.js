@@ -11,17 +11,17 @@ console.log(req.body.buttonsData)
 
 
 
-// if(req.body.mainText.length && req.body.idSlide.length>4){
+
     
     let slideToDB = new Slide({
 
-    
+   
 
 
         slide:{
            mainText:req.body.mainText,
            idSlide:req.body.idSlide, 
-           buttonsData:req.body.buttonsData 
+           buttonsData:req.body.buttonsData
         }
            
    
@@ -42,8 +42,6 @@ console.log(req.body.buttonsData)
                                 })
 
 
-// }
-// res.json({mess:"Slide NO ADD"})
     
 
 

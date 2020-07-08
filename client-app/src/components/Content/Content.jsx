@@ -18,6 +18,7 @@ constructor(props){
     super(props)
 
     this.state={
+        isLoading:false,
         mainText:"",
         buttonsData:[]
     }
@@ -25,6 +26,7 @@ constructor(props){
 
 
 componentDidMount(){
+    this.setState({isLoading:true});
     axios.get(`content/hystory1`).then(res=>{      
         return res.data.data[0].slide}).then(res=>{
              console.log(res)
@@ -35,6 +37,9 @@ componentDidMount(){
                  buttonsData
              })
          })
+
+         this.setState({isLoading:false});
+
 }
 
 
@@ -61,15 +66,17 @@ getHystory=(id)=>{
 
 
 render(){
-
     return(
+<>
+        {this.state.isLoading ? 
+            (<p>...Loading</p>) : (
         <div>
             <div className="center-align mainText" style={{backgroundColor:"#B3E6E9"}}>
                 {this.state.mainText}
             </div>
 
             <div>
-                {this.state.buttonsData.map((data,index)=><div key={index}><Buttons  getHystory={this.getHystory} color={data.colorButton} text={data.areaButtons} nextIdButton={data.nextIdButton} /></div>)}
+                {this.state.buttonsData.map((data,index)=><div key={index}><Buttons  getHystory={this.getHystory} color={data.colorButton} text={data.textButtons} nextIdButton={data.nextIdButton} /></div>)}
             </div>
 
 
@@ -79,10 +86,14 @@ render(){
 
 
 
-    )
+     ) }
+     
+     </>
+     )
+
+
+
 }
-
-
 
 
 }

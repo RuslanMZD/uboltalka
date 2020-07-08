@@ -9,13 +9,13 @@ const SlideSchema = new Schema({
      
         mainText:{
                type:String,
-               minlength:1,
+            //    minlength:1,
                required:true
 
             },
         idSlide:{
             type:String,
-            minlength:5,
+            // minlength:5,
             required:true
            }, 
            

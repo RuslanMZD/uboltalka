@@ -2,23 +2,39 @@ import React from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
 import M from "materialize-css";
 import * as axios from 'axios';
+import {compose} from 'redux';
+import {connect} from "react-redux";
 import'./Redactor.css';
 import IdSlideRedactor from './IdSlideRedactor';
 import ButtonRedactor from './ButtonRedactor';  
+import {redactorAPI} from '../../api/api';
+
+import {addMainTextThunkCreater,addIdSlideThunkCreater,addButtonsThunkCreater,deleteButtonsThunkCreater,changeColorButtonsThunkCreater,changeTextButtonsThunkCreater,nextIdButtonsThunkCreater} from '../../store/redactor-reducer';  
 
 import { BrowserRouter,Route } from 'react-router-dom';
 
-class Redactor extends React.PureComponent{
+class Redactor extends React.Component{
 constructor(props){
     super(props)
     this.state={
-      idSlide:"",
-      mainText:"",
+  
+      idSlide:null,
+      mainText:null,
         buttons:[]
 
 
     }
 }
+
+
+refreshRedactor(){
+  this.setState({
+    idSlide:this.props.idSlide,
+    mainText:this.props.mainText,
+    buttons:[...this.props.buttons]
+    })
+}
+
 
 
 
@@ -27,17 +43,31 @@ componentDidMount(){
     var elems = document.querySelectorAll('.tooltipped');
     var instances = M.Tooltip.init(elems, {});
   });
+this.refreshRedactor()
+
 }
+
+
+componentDidUpdate(prevProps,prevState, snapshot){
+if(this.props != prevProps){
+  this.refreshRedactor();
+}
+
+}
+
+
+
+
 
 
 
 addSlideToDb=async()=>{
 
-let mainText =this.state.mainText;
-let idSlide= this.state.idSlide;
- let buttonsData = [...this.state.buttons];
+let mainText =this.props.mainText;
+let idSlide= this.props.idSlide;
+ let buttonsData = [...this.props.buttons];
  console.log(buttonsData)
-let response =await axios.post(`redactor/add`,{mainText,idSlide,buttonsData});
+let response =await redactorAPI.addSlide(mainText,idSlide,buttonsData);
   console.log(response)
 if(response.data.mess==="Slide ADD"){
   M.toast({html: 'СЛАЙД ДОБАВЛЕН'})
@@ -50,12 +80,13 @@ if(response.data.mess==="Slide ADD"){
 }
 
 
-addMainText=(event)=>{
-    this.setState({
-    mainText:event.target.value
-  })
-  console.log(this.state.buttons)
 
+
+
+
+addMainText=(event)=>{
+  let mainText=event.target.value;
+  this.props.addMainTextThunkCreater(mainText);
 };
 
 
@@ -70,13 +101,10 @@ obrabotkaId=(event)=>{
 }
  
 }
-
-
 addIdSlider=(event)=>{
-  event.preventDefault()
- this.setState({idSlide:this.obrabotkaId(event)})
-
-  
+  event.preventDefault();
+  let idSlide =this.obrabotkaId(event);
+ this.props.addIdSlideThunkCreater(idSlide) 
 }
 
 
@@ -84,36 +112,17 @@ addIdSlider=(event)=>{
 
 
 addButtons=(event)=>{
-
-let buttonsCopy =[...this.state.buttons];
-
- buttonsCopy.push({text:"",color:"",nextButton:""})
-this.setState({buttons:buttonsCopy})
+this.props.addButtonsThunkCreater();
 
 }
 
 
 
-deleteButtons=(index)=>{
-  let buttonsCopy =[...this.state.buttons];
-
-  buttonsCopy.splice(index,1)
- this.setState({buttons:buttonsCopy})
- 
-
-// console.log(buttonsCopy)
- }
 
 
 
 
-addVariant=(index,areaButtons,colorButton,nextIdButton)=>{
-  let buttonsCopy =[...this.state.buttons];
-buttonsCopy[index]={areaButtons,colorButton,nextIdButton};
-this.setState({buttons:buttonsCopy})
 
-
-}
 
 
 
@@ -129,7 +138,7 @@ return(
     <div class="col s4 offset-s4 ">
      
 
-      <textarea placeholder="Основной текст слайда" className="textAreaRedactor"  onChange={this.addMainText}></textarea>
+      <textarea placeholder="Основной текст слайда" className="textAreaRedactor" value={this.props.mainText} onChange={this.addMainText}></textarea>
     </div>
     </div>
 
@@ -137,8 +146,9 @@ return(
     <div className="row">
   
   
-{this.state.buttons.length>0 ?   <div className="col s12">{this.state.buttons.map((data,index)=><div key={index}><ButtonRedactor addVariant={this.addVariant} deleteButtons={this.deleteButtons} index={index}/></div>)}</div> : null } 
-
+{this.state.buttons ?   <div className="col s12">{this.state.buttons.map((data,index)=><div key={index}><ButtonRedactor colorButton={data.colorButton} textButtons={data.textButtons} 
+changeColorButtonsThunkCreater={this.props.changeColorButtonsThunkCreater} obrabotkaId={this.obrabotkaId} nextIdButtonsThunkCreater={this.props.nextIdButtonsThunkCreater}
+ deleteButtonsThunkCreater={this.props.deleteButtonsThunkCreater} changeTextButtonsThunkCreater={this.props.changeTextButtonsThunkCreater} index={index}/></div>)}</div> : null } 
 
 
 
@@ -158,7 +168,7 @@ return(
 
 <div className="row">
   <div className="cols s4 offset-s4 center-align">
-    <button onClick={this.addButtons} class="btn-floating btn-large cyan pulse tooltipped waves-effect waves-light"  data-position="top" data-tooltip="Добавить вариант события в слайд"><i class="material-icons">add_circle_outline</i></button>
+    <button onClick={this.props.addButtonsThunkCreater} class="btn-floating btn-large cyan pulse tooltipped waves-effect waves-light"  data-position="top" data-tooltip="Добавить вариант события в слайд"><i class="material-icons">add_circle_outline</i></button>
 
 </div>
 </div>
@@ -194,4 +204,19 @@ return(
 
 }}
 
-export default Redactor;
+
+
+let mapStateToProps=(state)=>({
+
+mainText:state.redactor.mainText,
+idSlide:state.redactor.idSlide,
+buttons:state.redactor.buttons
+
+
+})
+
+
+export default connect(mapStateToProps,
+  {addMainTextThunkCreater,addIdSlideThunkCreater,addButtonsThunkCreater,
+  deleteButtonsThunkCreater,changeColorButtonsThunkCreater,
+  changeTextButtonsThunkCreater,nextIdButtonsThunkCreater})(Redactor);
