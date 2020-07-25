@@ -8,3 +8,10 @@ export const redactorAPI={
     }
 
 }
+
+export const authAPI={
+getUser(){
+    return axios('api/current_user')
+}
+
+}

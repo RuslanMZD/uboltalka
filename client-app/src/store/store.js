@@ -3,13 +3,17 @@ import { applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import {compose} from 'redux';
 import redactorReducer from './redactor-reducer';
+import authReducer from './auth-reducer';
+
 
 
 
 
 let reducers=combineReducers({
 
-    redactor:redactorReducer
+    redactor:redactorReducer,
+    auth: authReducer
+    
 
 })
 

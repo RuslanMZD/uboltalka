@@ -1,11 +1,8 @@
 import React,{useState,PureComponent} from 'react';
 import { connect } from 'react-redux';
-
-
+import {withAuthRedirect} from '../hoc/withAuthRedirect';
 import {  Redirect, NavLink, withRouter } from 'react-router-dom';
-
 import * as axios from 'axios';
-
 import {compose} from 'redux';
 import Buttons from './Buttons';
 import './Content.css';
@@ -99,4 +96,4 @@ render(){
 }
 
 
-export default Content;
+export default compose(withAuthRedirect)(Content);

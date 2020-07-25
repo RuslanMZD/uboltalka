@@ -8,6 +8,7 @@ import'./Redactor.css';
 import IdSlideRedactor from './IdSlideRedactor';
 import ButtonRedactor from './ButtonRedactor';  
 import {redactorAPI} from '../../api/api';
+import {withAuthRedirect} from '../hoc/withAuthRedirect';
 
 import {addMainTextThunkCreater,addIdSlideThunkCreater,addButtonsThunkCreater,deleteButtonsThunkCreater,changeColorButtonsThunkCreater,changeTextButtonsThunkCreater,nextIdButtonsThunkCreater} from '../../store/redactor-reducer';  
 
@@ -216,7 +217,7 @@ buttons:state.redactor.buttons
 })
 
 
-export default connect(mapStateToProps,
+export default compose( connect(mapStateToProps,
   {addMainTextThunkCreater,addIdSlideThunkCreater,addButtonsThunkCreater,
   deleteButtonsThunkCreater,changeColorButtonsThunkCreater,
-  changeTextButtonsThunkCreater,nextIdButtonsThunkCreater})(Redactor);
+  changeTextButtonsThunkCreater,nextIdButtonsThunkCreater}),withAuthRedirect)(Redactor);
