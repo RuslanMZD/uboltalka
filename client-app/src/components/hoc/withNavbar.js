@@ -102,6 +102,7 @@ export const withNavbar = (Component)=> {
                               <ul id="nav-mobile" className="right hide-on-med-and-down">
                               <li><NavLink to="/#">На Главную</NavLink></li>          
                                 <li><NavLink to="/Content">Контент</NavLink></li>
+                                <li><NavLink to="/Redactor">Редактор</NavLink></li>
                                 <li><a href="http://localhost:4000/api/logout">SignOut</a></li> 
                                 </ul>           
                         
@@ -109,6 +110,7 @@ export const withNavbar = (Component)=> {
                               <ul className="sidenav" id="mobile-demo">
                         <li><NavLink to="/#">На Главную</NavLink></li>        
                               <li><NavLink to="/Content">Контент</NavLink></li>
+                              <li><NavLink to="/Redactor">Редактор</NavLink></li>
                               <li><a href="http://localhost:4000/api/logout">SignOut</a></li>
                               </ul>       
                             </div>
